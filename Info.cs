@@ -244,7 +244,7 @@ public abstract class Info
 	}
   }
   
-    
+   } 
     
 
 
