@@ -68,43 +68,40 @@ public abstract class Info
   public Info(){	 
     get_info(); // get public field member in Array
   }
-  public Info(byte[] b){	 
-    get_info(); // get public field member in Array
-	Load(b);	
-  }
-	private byte[] FileToBinary(string filepath) {    
-		FileStream stream = File.OpenRead( filepath );
-		byte[] fileBytes= new byte[stream.Length];
-		stream.Read(fileBytes, 0, fileBytes.Length);
-		stream.Close();
-		return fileBytes;
+
+   private byte[] FileToBinary(string filepath) {    
+	FileStream stream = File.OpenRead( filepath );
+	byte[] fileBytes= new byte[stream.Length];
+	stream.Read(fileBytes, 0, fileBytes.Length);
+	stream.Close();
+	return fileBytes;
    }
    
-	private void BinaryToFile( byte[] fileBytes, string filepath) {
+   private void BinaryToFile( byte[] fileBytes, string filepath) {
         FileStream stream = File.OpenWrite( filepath );
-		stream.Write(fileBytes, 0, fileBytes.Length);
-		stream.Close();
+	stream.Write(fileBytes, 0, fileBytes.Length);
+	stream.Close();
    }
    
    public void Load(byte[] data) {
       using (MemoryStream m = new MemoryStream(data)) {
          using ( BinaryReader reader = new BinaryReader(m)) {
-      read(reader);
+            read(reader);
          }
       }
    }
    public void Load(string filePath) {
-		Load(FileToBinary(filePath));
+	Load(FileToBinary(filePath));
    }
    
    public void Save(string filePath) {
-	   BinaryToFile(Serialize(), filePath );
+        BinaryToFile(Serialize(), filePath );
    }
 
    public byte[] Serialize() {
       using (MemoryStream m = new MemoryStream()) {
          using ( BinaryWriter writer = new BinaryWriter(m)) {
-       write(writer);
+             write(writer);
          }
          return m.ToArray();
       }
