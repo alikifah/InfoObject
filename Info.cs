@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using ExtensionMethods;
 namespace ExtensionMethods
 {
@@ -61,6 +60,7 @@ namespace ExtensionMethods
 	}
    }
 }
+
 // Information holder class
 public abstract class Info
 {
@@ -138,15 +138,6 @@ public abstract class Info
         writer.WriteIntArray( (int[])v);	
       else if (v.GetType() == typeof(float[]))
         writer.WriteFloatArray( (float[])v);
-
-// write non premitive struct
-if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPrimitive)
-{
-	byte[] s = ToByteArray(t.GetValue(this));
-	writer.WriteByteArray( s);
-}
-	
-	
 	
      }
    }
@@ -181,13 +172,7 @@ if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPri
       else if (v.GetType() == typeof(int[]))
         t.SetValue(this, reader.ReadIntArray());
       else if (v.GetType() == typeof(float[]))
-        t.SetValue(this, reader.ReadFloatArray());
-// read non premitive structs
-if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPrimitive)
-{
-	t.SetValue(this,FromByteArray<object>(reader.ReadByteArray()));
-}
-		
+        t.SetValue(this, reader.ReadFloatArray());	
 	
     }
    }
@@ -223,18 +208,7 @@ if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPri
   private void get_info(){
     Type myType = this.GetType();
     myFieldInfo = myType.GetFields(BindingFlags.Instance | BindingFlags.Public);
-	correctNull();
-	/*
-	foreach(var t in myFieldInfo){
-		//Console.WriteLine(t.Name + " : " + t.GetValue(this).GetType());
-		//Console.WriteLine(t.Name + " : " + t.GetValue(this));
-			}
-			Console.WriteLine( "Type is " + t.GetValue(this).GetType().ToString());				
-		//if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPrimitive)
-			//Console.Write(" --- this ist struct" + "\n");
-	*/
-	 
-	 
+    correctNull();	 
   }
   private void correctNull(){
 	foreach(var t in myFieldInfo){
@@ -273,33 +247,8 @@ if (t.GetValue(this).GetType().IsValueType  && !t.GetValue(this).GetType().IsPri
 	}
   }
   
-    private T FromByteArray<T>(byte[] rawValue)
-    {
-        GCHandle handle = GCHandle.Alloc(rawValue, GCHandleType.Pinned);
-        T structure = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-        handle.Free();
-        return structure;
-    }
-    private byte[] ToByteArray(object value)
-    {
-        int rawsize = Marshal.SizeOf(value);
-        byte[] rawdata = new byte[rawsize];
-        GCHandle handle =
-            GCHandle.Alloc(rawdata,
-            GCHandleType.Pinned);
-        Marshal.StructureToPtr(value,
-            handle.AddrOfPinnedObject(),false);
-        handle.Free();
-        return rawdata;
-    }
-	
-	
-}
-
-
-[Obsolete("Should be refactored")]
-public class MustRefactor: System.Attribute{}
-
+    
+    
 
 
 
