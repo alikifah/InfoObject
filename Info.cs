@@ -178,7 +178,7 @@ public abstract class Info
       var v = t.GetValue(this);
       if (v == null ) continue;
       if (v.GetType() == typeof(string[]))
-        t.SetValue(this, null); 
+        t.SetValue(this, new string[]{}); 
       else if (v.GetType() == typeof(string))
         t.SetValue(this, ""); 
       else if (v.GetType() == typeof(int))
@@ -194,11 +194,11 @@ public abstract class Info
       else if (v.GetType() == typeof(double))
         t.SetValue(this, default(double));
       else if (v.GetType() == typeof(byte[]))
-        t.SetValue(this, null);	
+        t.SetValue(this, new byte[]{});	
       else if (v.GetType() == typeof(int[]))
-        t.SetValue(this, null);
+        t.SetValue(this, new int[]{});
       else if (v.GetType() == typeof(float[]))
-        t.SetValue(this, null);
+        t.SetValue(this, new float[]{});
     }
    }
    
