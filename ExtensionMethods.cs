@@ -1,3 +1,9 @@
+// ============================================================================
+//    Author: Al-Khafaji, Ali Kifah
+//    Date:   20.4.2022
+//    Description: Extension Methods for BinaryReader and BinaryWriter
+// ============================================================================
+
 using system;
 using system.IO;
 namespace ExtensionMethods
