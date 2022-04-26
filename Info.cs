@@ -6,8 +6,6 @@
 //    The classes that inherit from this class can be converted to byte array and transferred over network or saved to disk as a binary file.
 //    Loading of the original data from file or from byte array is also possible.
 // ============================================================================
-using System;
-
 ﻿using System;
 using System.IO;
 using System.Reflection;
