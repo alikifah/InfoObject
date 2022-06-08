@@ -14,8 +14,8 @@ using System.Collections.Generic;
 
 public abstract class Info
 {
-    private FieldInfo[] myFieldInfo;
-    private int size = 0;
+    private FieldInfo[] myFieldInfo; // array to hold field members
+    private int size = 0; // data size that this class holds(in Byte)
     public Info()
     {
         initialize(); // save all field members in the Array
@@ -58,7 +58,6 @@ public abstract class Info
     }
 
     // Deserialize from byte array
-    // PrizeInfo k =  Info.Deserialize<PrizeInfo>(b);
     public static T Deserialize<T>(byte[] data) where T : Info, new()
     {
         var o = new T();
@@ -137,7 +136,7 @@ public abstract class Info
         foreach (var t in myFieldInfo)
         {
             var v = t.GetValue(this);
-            if (v == null) continue;// all members must be initialized with non null value!
+            if (v == null) continue;// all members must be initialized with non null value!(null values will be ignored)
             if (v.GetType() == typeof(string[]))
                 t.SetValue(this, reader.ReadStringArray());
             else if (v.GetType() == typeof(string))
@@ -169,7 +168,7 @@ public abstract class Info
         foreach (var t in myFieldInfo)
         {
             var v = t.GetValue(this);
-            if (v == null) continue; // all members must be initialized with non null value!
+            if (v == null) continue; // all members must be initialized with non null value!(null values will be ignored)
             if (v.GetType() == typeof(string[]))
                 t.SetValue(this, new string[] { });
             else if (v.GetType() == typeof(string))
