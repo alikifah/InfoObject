@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 //    Author: Al-Khafaji, Ali Kifah
 //    Date:   20.4.2022
 //    Description: Extension Methods for BinaryReader and BinaryWriter
@@ -6,9 +6,9 @@
 
 using System;
 using System.IO;
+using System.Collections.Generic;
 
-
-namespace ExtensionMethods
+namespace InfoObject
 {
 	public static class BinExtensions
 	{
@@ -187,10 +187,6 @@ namespace ExtensionMethods
 			}
 			return dict;
 		}
-
-
-
-
-
+		
 	}
 }
