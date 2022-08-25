@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -41,7 +41,6 @@ namespace InfoObject
             stream.Write(fileBytes, 0, fileBytes.Length);
             stream.Close();
         }
-
 
         public static void ResetInstance(object instance)
         {
@@ -122,6 +121,10 @@ namespace InfoObject
                     writer.WriteIntArray((int[])value);
                 else if (type == typeof(float[]))
                     writer.WriteFloatArray((float[])value);
+
+                else if (type.IsEnum)
+                    writer.Write((int)value);
+
                 else if (type.IsSubclassOf(typeof(Info)) || ReflectionProvider.isStruct(type))
                 {
                     if (value == null && !isStruct)
@@ -177,6 +180,10 @@ namespace InfoObject
                     member.SetValue(instance, reader.ReadIntArray());
                 else if (type == typeof(float[]))
                     member.SetValue(instance, reader.ReadFloatArray());
+
+                else if(type.IsEnum)
+                    member.SetValue(instance, reader.ReadInt32());
+
                 else if (type.IsSubclassOf(typeof(Info)) || ReflectionProvider.isStruct(type))
                 {
                     if (value == null && !isStruct)
@@ -220,8 +227,6 @@ namespace InfoObject
                 return ReflectionProvider.GetProperties(instance);
             }
         }
-
-
 
     }
 }
