@@ -60,7 +60,7 @@ Through utilisation of AES256 algorithm a password with maximum length of 32 cha
 byte[] serializedEncrypted = user.Serialize("123ta");
 ```
 
-the resulting byte array can now be simply ransmitted over network using TCP protocol.
+the resulting byte array can now be simply transmitted over network using TCP protocol.
 
 
 ## Deserialization
@@ -170,7 +170,7 @@ We use a response class to send the requested object back to client
 requesting some info type in client. Here we ask the server to send us an InfoObject of type Book.
 
 ```c#
-Book book = Client.Request<Book>( args); //this sample method is not implemented in this library
+Book book = await Client.Request<Book>( args); //this sample method is not implemented in this library
 ```
 
 
