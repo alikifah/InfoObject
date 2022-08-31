@@ -41,7 +41,7 @@ var user = new User{
   Id=1,
   Name= "Tom Adams",
   Email="toom.adams@gmx.com",
-  Birthday = = new DateTime(1980, 7, 21)
+  Birthday = new DateTime(1980, 7, 21)
 };
 ```
 
