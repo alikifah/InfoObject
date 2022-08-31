@@ -2,7 +2,7 @@
 
 lightweight and powerful binary serialization library made with c#.
 
-This library implements Reflection to convert public properties to and from binary data.
+This library implements Reflection to convert public properties of model classes to and from binary data.
 The Info class was originally meant to be used as a containing medium to hold and transfer model Information on disk or over network using TCP protocol.
 The classes that inherit from Info class can be converted to byte array and transferred over network or saved to disk as a binary file.
 
