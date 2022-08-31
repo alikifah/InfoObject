@@ -11,7 +11,7 @@ The classes that inherit from Info class can be converted to byte array and tran
 2. supports serialization of nested Info objects.
 3. supports serialization of nested enums and structs.
 4. supports serialization of lists and Dictionaries of all primitive types as well as of structs, enums and info objects.
-5. supports serialization of object type that can holds all other supported types. this object can then be casted to the original type after deserialization.
+5. supports serialization of object type that can dynamically holds all other supported types. this object can then be casted to the original type after deserialization.
 
 ## Security features:
 supports encryption of the byte array and the saved binary files with password using the AES256 algorithm
@@ -104,8 +104,35 @@ else
 ```
 
 
+## Saving the model to binary file
 
+The resulting byte array can also be saved to file.
 
+Example
 
+```c#
+//save our model without password 
+user.Save("D:\BinModels\user.info");
+
+// save with password
+user.Save("D:\BinModels\userEncrypted.info", "strangeWorld313");
+
+// loading the model back from non-encrypetd file
+var userback = Info.Deserialize<User>("D:\BinModels\user.info");
+
+// loading the model back from encrypetd file
+var userbackFromEncrypted = Info.Deserialize<User>("D:\BinModels\userEncrypted.info", "strangeWorld313");
+
+```
+
+We can also intercept exceptions when loading model from file
+
+```c#
+var userback = Info.Deserialize<User>("D:\BinModels\userEncrypted.info", out Exception ex ,"strangeWorld313");
+if (ex != null)
+  Console.WriteLine( "Error : " + ex );
+else
+    Console.WriteLine( userback.Name );
+```
 
 
