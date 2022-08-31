@@ -135,4 +135,10 @@ else
     Console.WriteLine( userback.Name );
 ```
 
+## iterable InfoObject
+
+The Info class implements also the IEnumerable interface and can thus be iterated over using foreach loop.
+
+
+
 
