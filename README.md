@@ -140,5 +140,66 @@ else
 The Info class implements also the IEnumerable interface and can thus be iterated over using foreach loop.
 
 
+## asigning element type dynamically
+
+By declaring an object type in properties of infoObject we can asign any type of element to this property. This feature comes particularly handy when we want to receive element of a type that is unknown at combile time.
+
+Example of possible implementation of this feature:
+
+let's assume we want to get some object from server, for example this Book class
+
+```c#
+ public class Book : Info
+ {
+	public int  Id {get; set;}
+ 	public string Name {get; set;}
+ 	public string Author {get; set;}	
+ }
+```
+
+We use a response class to send the requested object back to client
+```c#
+ public class Response : Info
+ {
+	public int  Id {get; set;}
+ 	public object Data {get; set;}// this property can now hold any other type and it can be serializes and deserialized successfuly
+ }
+```
+
+
+requesting some info type in client. Here we ask the server to send us an InfoObject of type Book.
+
+```c#
+Book book = Client.Request<Book>( args); //this sample method is not implemented in this library
+```
+
+
+The server can process the request that came from client and send back a response that holds the required type( here Book )
+
+```c#
+Response response = new Response{
+	Id = 1,
+	Data = new Book{ // the type object will hold an info object of type Book(it can also holds any other type, but here the client requested a book)
+		Id = 12,
+		Name = "Anna Karenina",
+		Author = "Lew Tolstoi"
+	}
+}
+```
+
+
+example of sending the response back to the client.
+
+```c#
+Server.SendResponse( clientId, response ); //this sample method is not implemented in this library
+```
+
+in client we receive the response and cast the object type to Book, since we told the server to send us a Book
+
+```c#
+var bookFromServer = (Book)response.Data;
+Console.WrieLine(bookFromServer.Name);
+```
+
 
 
