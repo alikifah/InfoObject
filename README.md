@@ -40,7 +40,7 @@ let's instantiate our user
 var user = new User{
   Id=1,
   Name= "Tom Adams",
-  Email="toom.adams@gmx.com",
+  Email="tom.adams@gmx.com",
   Birthday = new DateTime(1980, 7, 21)
 };
 ```
